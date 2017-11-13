@@ -12,10 +12,8 @@ My thesis is about measuring inequality of opportunity using data from China. Fo
 
 In addition, I am interested in data science and machine learning. I have learned several online machine learning courses since 2015. I am looking forward to applying these techniques in my future career.
 
-### More Information
-
-A place to include any other types of information that you'd like to include about yourself.
-
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[dongjie.wu@protonmail.com
+](mailto:dongjie.wu@protonmail.com
+)
