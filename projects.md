@@ -8,7 +8,7 @@ title: My Projects
         {% assign projects = site.projects | sort: 'listing-priority' %}
         {% for project in projects %}
         <li>
-            <h2><a href="{{ project.url }}">{{ project.title }}</a></h2>
+            <h2><a href="{{ project.projectUrl }}">{{ project.title }}</a></h2>
             {{ project.description }}
         </li>
         {% endfor %}
