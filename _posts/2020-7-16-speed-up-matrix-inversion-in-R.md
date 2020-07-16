@@ -3,12 +3,6 @@ layout: post
 title:  "Speed up matrix inversion in R"
 ---
 
-<style>
-.tablelines table, .tablelines td, .tablelines th {
-        border: 1px solid black;
-        }
-</style>
-
 Recently, I have been working on a project which requires translating Matlab code to R code. This project uses a fairly large dataset and needs to recursively compute the inversion of a matrix (around 1000 by 1000) more than 500 times. In Matlab, it spends less then 5 minutes to run the whole computation; while in R, my initial translation ran more than an hour.
 
 In R, there are several ways to compute the matrix inversion.
@@ -53,7 +47,7 @@ I randomly generated a 1000 by 1000 matrix and ran the inversion 100 times for e
 | inverse_cpp_s3    | 100          | 26.59   | 2.544    | 25.91     | 0.60     |
 | Matrix::chol2inv  | 100          | 10.45   | 1.000    | 10.31     | 0.14     |
 | Matrix::solve_s4  | 100          | 16.00   | 1.531    | 15.94     | 0.06     |
-{: .tablelines}
+
 
 Clearly, the common `solve()` is the slowest (49.45s for 100 rounds of matrix inversion). If the matrix is symmetric positive-definite, using `chol2inv()` could reduce a half of the runtime. Using the `RcppArmadillo` can also achieve similar reduction. Surprisingly, the inversion using the `Matrix` package performs even much better than the `RcppArmadillo` packages. If the matrix is symmetric and positive definite, using `Matrix::chol2inv()` improves the performance by 4.7 times comparing to the `solve()`! 
 
@@ -67,6 +61,6 @@ Just by using this alternative version, I achieve the 10-fold performance! Here 
 | chol_s3          | 100          | 1.67    | 1.835    | 18.63     | 0.42     |
 | Matrix::chol2inv | 100          | 0.91    | 1.000    | 10.58     | 0.21     |
 | Matrix::solve_s4 | 100          | 1.30    | 1.429    | 8.42      | 0.17     |
-{: .tablelines}
+
 
 `Matrix::chol2inv()` is still the fastest. The runtime is only 0.91s comparing to 49.45s of `solve()` in the previous version. I achieved a more than 50 times boost of performance!
