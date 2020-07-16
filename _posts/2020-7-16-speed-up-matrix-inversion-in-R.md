@@ -40,14 +40,14 @@ Thanks to the rich data type `Matrix` provides, when using `Matrix::solve()`, th
 ### Test 
 I randomly generated a 1000 by 1000 matrix and ran the inversion 100 times for each method introduced above. The following is the benchmark test result.
 
-| test| replications| elapsed| relative| user.self| sys.self|
-|----|----|----|----|----|----|
-| solve_s3| 100| 49.45| 4.732| 48.97| 0.45|
-| chol_s3| 100| 25.53| 2.443| 25.19| 0.34|
-| inverse_cpp_pd_s3| 100| 26.50| 2.536| 25.76| 0.62|
-| inverse_cpp_s3| 100| 26.59| 2.544| 25.91| 0.60|
-| Matrix::chol2inv| 100| 10.45| 1.000| 10.31| 0.14|
-| Matrix::solve_s4| 100| 16.00| 1.531| 15.94| 0.06|
+| test              | replications | elapsed | relative | user.self | sys.self |
+|-------------------|--------------|---------|----------|-----------|----------|
+| solve_s3          | 100          | 49.45   | 4.732    | 48.97     | 0.45     |
+| chol_s3           | 100          | 25.53   | 2.443    | 25.19     | 0.34     |
+| inverse_cpp_pd_s3 | 100          | 26.50   | 2.536    | 25.76     | 0.62     |
+| inverse_cpp_s3    | 100          | 26.59   | 2.544    | 25.91     | 0.60     |
+| Matrix::chol2inv  | 100          | 10.45   | 1.000    | 10.31     | 0.14     |
+| Matrix::solve_s4  | 100          | 16.00   | 1.531    | 15.94     | 0.06     |
 
 Clearly, the common `solve()` is the slowest (49.45s for 100 rounds of matrix inversion). If the matrix is symmetric positive-definite, using `chol2inv()` could reduce a half of the runtime. Using the `RcppArmadillo` can also achieve similar reduction. Surprisingly, the inversion using the `Matrix` package performs even much better than the `RcppArmadillo` packages. If the matrix is symmetric and positive definite, using `Matrix::chol2inv()` improves the performance by 4.7 times comparing to the `solve()`! 
 
@@ -55,11 +55,11 @@ However, even use the outperformer `Matrix::chol2inv()`, my program is still aro
 
 Just by using this alternative version, I achieve the 10-fold performance! Here is the benchmark test using Microsoft R Open.
 
-| test| replications| elapsed| relative| user.self| sys.self |
-|------------------|-------------|--------|---------|----------|-----------|
-| solve_s3 | 100| 3.42| 3.758| 39.63| 0.50 |
-| chol_s3 | 100| 1.67| 1.835| 18.63| 0.42 |
-| Matrix::chol2inv | 100| 0.91| 1.000| 10.58| 0.21 |
-| Matrix::solve_s4 | 100| 1.30| 1.429| 8.42| 0.17 |
+| test             | replications | elapsed | relative | user.self | sys.self |
+|------------------|--------------|---------|----------|-----------|----------|
+| solve_s3         | 100          | 3.42    | 3.758    | 39.63     | 0.50     |
+| chol_s3          | 100          | 1.67    | 1.835    | 18.63     | 0.42     |
+| Matrix::chol2inv | 100          | 0.91    | 1.000    | 10.58     | 0.21     |
+| Matrix::solve_s4 | 100          | 1.30    | 1.429    | 8.42      | 0.17     |
 
 `Matrix::chol2inv()` is still the fastest. The runtime is only 0.91s comparing to 49.45s of `solve()` in the previous version. I achieved a more than 50 times boost of performance!
